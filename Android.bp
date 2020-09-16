@@ -1,0 +1,91 @@
+IGNORED_WARNINGS = [
+    "-Wno-unused-parameter",
+    "-Wno-unused-variable",
+    "-Wnon-virtual-dtor",
+]
+COMMON_CFLAGS = IGNORED_WARNINGS + [
+    "-DSPEECH_LOG_ANDROID",
+    "-DSPEECH_SDK_DETAIL_TRACE",
+    "-DSSL_NON_VERIFY",
+]
+
+// ANDROIDMK TRANSLATION ERROR: unsupported include
+// include $(LOCAL_PATH)/core.mk
+
+// ANDROIDMK TRANSLATION ERROR: unsupported include
+// include $(LOCAL_PATH)/JavaLibrary.mk
+
+
+PROTOC_GEN_SRC = [
+    "nanopb-gen/speech_types.pb.c",
+    "nanopb-gen/auth.pb.c",
+    "nanopb-gen/tts.pb.c",
+    "nanopb-gen/speech.pb.c",
+]
+
+COMMON_SRC = [
+    "src/common/speech_connection.cc",
+    "src/common/nanopb_encoder.cc",
+    "src/common/nanopb_decoder.cc",
+    "src/common/alt_chrono.cc",
+    "src/common/log_plugin.cc",
+    "src/common/trace-uploader.cc",
+]
+
+TTS_SRC = ["src/tts/tts_impl.cc"]
+
+SPEECH_SRC = ["src/speech/speech_impl.cc"]
+
+NANOPB_SRC = [
+    "nanopb/pb_common.c",
+    "nanopb/pb_decode.c",
+    "nanopb/pb_encode.c",
+]
+cc_library_shared {
+
+    name: "libopenvoice",
+
+    local_include_dirs: [
+        "src/common",
+        "nanopb",
+        "nanopb-gen",
+    ],
+
+    srcs: COMMON_SRC + TTS_SRC + SPEECH_SRC + PROTOC_GEN_SRC + NANOPB_SRC,
+
+    cppflags: COMMON_CFLAGS + ["-std=c++11"],
+    shared_libs: [
+        "libmutils",
+        "libuWS2",
+        "libcrypto",
+        "libz",
+    ],
+    export_include_dirs: ["include"],
+}
+
+cc_library_shared {
+    name: "libopenvoice-jni",
+
+    local_include_dirs: [
+        "include",
+        "src/common",
+    ],
+    cppflags: COMMON_CFLAGS + ["-std=c++11"],
+    shared_libs: [
+        "libnativehelper",
+        "libopenvoice",
+        "libmutils",
+    ],
+    srcs: [
+        "android/jni/com_rokid_speech_Tts.cc",
+        "android/jni/com_rokid_speech_Speech.cc",
+        "android/jni/common.cc",
+    ],
+}
+
+java_library {
+  name: "rokid_speech",
+  srcs: [
+    "android/java/**/*.java",
+  ],
+}

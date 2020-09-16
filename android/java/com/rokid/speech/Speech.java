@@ -173,7 +173,7 @@ public class Speech extends GenericConfig {
 	private long _sdk_speech;
 
 	static {
-		System.loadLibrary("rokid_speech_jni");
+		System.loadLibrary("openvoice-jni");
 		_sdk_init(Speech.class, SpeechResult.class, VoiceOptions.class);
 	}
 

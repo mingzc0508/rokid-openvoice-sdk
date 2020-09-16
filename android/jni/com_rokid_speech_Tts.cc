@@ -53,7 +53,6 @@ protected:
 
 	void do_poll() {
 		TtsResult result;
-		int32_t r;
 		jobject res_obj;
 		while (true) {
 			if (!tts_->poll(result))

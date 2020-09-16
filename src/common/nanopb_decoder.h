@@ -11,6 +11,8 @@ namespace speech {
 
 class NanoPBDecoder {
 public:
+  virtual ~NanoPBDecoder() = default;
+
 	bool ParseFromArray(const char* data, uint32_t length);
 
 protected:

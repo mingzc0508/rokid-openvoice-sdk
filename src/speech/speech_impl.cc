@@ -726,7 +726,6 @@ int32_t SpeechImpl::do_request(shared_ptr<SpeechReqInfo>& req) {
 void SpeechImpl::gen_results() {
   SpeechResponse resp;
   ConnectionOpResult r;
-  SpeechError err;
   uint32_t timeout;
 
   KLOGV(tag__, "thread 'gen_results' run");

@@ -51,9 +51,7 @@ const char *stage_to_string(ConnectStage stage) {
   return stage_strings[static_cast<int>(stage)];
 }
 
-SpeechConnection::SpeechConnection() : work_thread_(NULL),
-    keepalive_thread_(NULL), ws_(NULL), stage_(ConnectStage::INIT),
-    CONN_TAG("speech.Connection") {
+SpeechConnection::SpeechConnection() {
   prepare_hub();
 }
 

@@ -71,7 +71,6 @@ protected:
 
 	void do_poll() {
 		SpeechResult result;
-		int32_t r;
 		jobject res_obj;
 		while (true) {
 			if (!speech_->poll(result))
@@ -286,7 +285,7 @@ static void com_rokid_speech_Speech__sdk_put_voice(JNIEnv *env,
 	jbyte* buf = new jbyte[length];
 	env->GetByteArrayRegion(voice, offset, length, buf);
 	p->speech->put_voice(id, (uint8_t*)buf, length);
-	delete buf;
+	delete[] buf;
 }
 
 static void com_rokid_speech_Speech__sdk_end_voice(JNIEnv *env,

@@ -145,7 +145,7 @@ public class Tts extends GenericConfig {
 	private long _sdk_tts;
 
 	static {
-		System.loadLibrary("rokid_speech_jni");
+		System.loadLibrary("openvoice-jni");
 		_sdk_init(Tts.class, TtsResult.class);
 	}
 

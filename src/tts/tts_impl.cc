@@ -341,7 +341,6 @@ bool TtsImpl::do_request(shared_ptr<TtsReqInfo>& req) {
 void TtsImpl::gen_results() {
 	TtsResponse resp;
 	ConnectionOpResult r;
-	TtsError err;
 	uint32_t timeout;
 
 	KLOGV(tag__, "thread 'gen_results' run");

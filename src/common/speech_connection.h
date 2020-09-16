@@ -194,12 +194,12 @@ private:
   std::list<SpeechBinaryResp*> responses_;
   std::mutex stage_mutex_;
   std::condition_variable stage_changed_;
-  ConnectStage stage_;
+  ConnectStage stage_ = ConnectStage::INIT;
 
-  std::thread* work_thread_;
-  std::thread* keepalive_thread_;
+  std::thread* work_thread_ = NULL;
+  std::thread* keepalive_thread_ = NULL;
   uWS::Hub hub_;
-  uWS::WebSocket<uWS::CLIENT>* ws_;
+  uWS::WebSocket<uWS::CLIENT>* ws_ = NULL;
   PrepareOptions options_;
   std::string service_type_;
   SteadyClock::time_point reconn_timepoint_;
@@ -210,7 +210,7 @@ private:
   std::list<TraceInfo> _trace_infos;
 #endif
 
-  const char* CONN_TAG;
+  const char* CONN_TAG = "speech.Connection";
   char CONN_TAG_BUF[32];
 
 #ifdef ROKID_UPLOAD_TRACE
