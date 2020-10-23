@@ -44,6 +44,6 @@ public class TtsOptions {
 	private long _tts_options;
 
 	static {
-		System.loadLibrary("rokid_speech_jni");
+		System.loadLibrary("openvoice-jni");
 	}
 }
