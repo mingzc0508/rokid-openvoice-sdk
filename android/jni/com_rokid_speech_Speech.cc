@@ -368,7 +368,7 @@ static void com_rokid_speech_SpeechOptions_native_set_codec(JNIEnv* env,
 }
 
 static void com_rokid_speech_SpeechOptions_native_set_vad_mode(JNIEnv* env,
-		jobject thiz, jlong optl, jstring v) {
+		jobject thiz, jlong optl, jstring v, jint tm) {
 	SpeechOptionsNativeInfo* p =
 		reinterpret_cast<SpeechOptionsNativeInfo*>(optl);
 	const char* sv;
@@ -376,11 +376,13 @@ static void com_rokid_speech_SpeechOptions_native_set_vad_mode(JNIEnv* env,
 
 	assert(p);
 	sv = env->GetStringUTFChars(v, NULL);
-	if (strcmp(sv, "cloud") == 0)
+	if (strcmp(sv, "cloud") == 0) {
 		mode = VadMode::CLOUD;
-	else
+		if (tm == 0)
+			tm = 700;
+	} else
 		mode = VadMode::LOCAL;
-	p->options->set_vad_mode(mode, 700);
+	p->options->set_vad_mode(mode, tm);
 	env->ReleaseStringUTFChars(v, sv);
 }
 

@@ -27,9 +27,9 @@ public class SpeechOptions {
 	}
 
 	// mode: "local" "cloud"
-	public void set_vad_mode(String mode) {
+	public void set_vad_mode(String mode, int timeout) {
 		if (_native_options != 0)
-			native_set_vad_mode(_native_options, mode);
+			native_set_vad_mode(_native_options, mode, timeout);
 	}
 
 	public void set_no_nlp(boolean v) {
@@ -55,7 +55,7 @@ public class SpeechOptions {
 
 	private native void native_set_codec(long opt, String v);
 
-	private native void native_set_vad_mode(long opt, String v);
+	private native void native_set_vad_mode(long opt, String v, int tm);
 
 	private native void native_set_no_nlp(long opt, boolean v);
 
